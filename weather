@@ -1,2 +1,11 @@
 #!/bin/bash
-echo "This works"
+# Use: weather <location>
+
+# Importing preferences from prefs.cfg
+source Prefs.cfg
+ 
+location=$1
+
+temp=$(curl -s --request GET --url 'api.openweathermap.org/data/2.5/weather?q='$location'&appid='$apiKey'&units='$units | jq '.main.temp' )
+
+echo $temp
