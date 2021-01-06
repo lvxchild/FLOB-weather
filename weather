@@ -1,11 +1,59 @@
 #!/bin/bash
 # Use: weather <location>
 
-# Importing preferences from prefs.cfg
+# Importing preferences from prefs.cfg #
 source Prefs.cfg
- 
+
+# First parameter after command #
 location=$1
 
-temp=$(curl -s --request GET --url 'api.openweathermap.org/data/2.5/weather?q='$location'&appid='$apiKey'&units='$units | jq '.main.temp' )
+# Operation tha clear the terminal, enabled by default, can be disabled easily using ./UpdatePrefs.sh
+if [[ "$clearTerminal" == "y" ]]
+then
+	clear
+fi
+echo -e '\e[1A\e[K'
 
-echo $temp
+# Time format selection #
+if [[ "$timeFormat" == "12" ]]
+then
+	timeFormat="+%I:%M:%S"
+else
+	timeFormat="+%H:%M:%S"
+fi
+
+# Units of measurement selection #
+if [[ "$units" == "imperial" ]]
+then
+	unitTemp="F"
+	unitWind="mph"
+else
+	unitTemp="C"
+	unitWind="m/s"
+fi
+
+# Main loop that display data accordingly to Prefs.cfg
+while :
+do
+	read temp tempFeel tempMin tempMax humidity sunrise sunset < <(echo $(curl -s --request GET --url 'api.openweathermap.org/data/2.5/weather?q='$location'&appid='$apiKey'&units='$units | jq '.main.temp, .main.feels_like, .main.temp_min, .main.temp_max, .main.humidity, .sys.sunrise, .sys.sunset' ))
+	
+	echo "The temperature is ${temp}${unitTemp}, but it feels like ${tempFeel}${unitTemp}"
+	echo "The humidity is at ${humidity}%"
+	echo "Min: ${tempMin}${unitTemp} | Max: ${tempMax}${unitTemp}"
+	echo -e "The sun will rise at "$(date -d @${sunrise} ${timeFormat})" and set at "$(date -d @${sunset} ${timeFormat})
+
+	# If user choose to not update every n seconds, while loop will be broken. This feature is disabled by default, but editable using ./UpdatePrefs.sh
+	if [[ "$singleEvent" == "y" ]]
+	then
+		break
+	fi
+
+	# Refresh data timer #
+	sleep $refreshTime
+
+	# Clear every line before updating stats #
+	for i in {1..5}
+	do
+		echo -e '\e['$i'A\e[K'
+	done
+done
