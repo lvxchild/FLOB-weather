@@ -39,4 +39,4 @@ touch $(pwd)/Prefs.cfg
 echo -e 'apiKey="'$apiKey'"\nunits="'$units'"\nclearTerminal="'$clearTerminal'"\ntimeFormat="'$timeFormat'"\nsingleEvent="'$singleEvent'"\nrefreshTime="'$refreshTime'"' >> $(pwd)/Prefs.cfg
 
 # Write PATH onto .bashrc, to be able to call OpenWeather commands everywhere #
-echo -e '\n# Path to OpenWeather bash command\nexport PATH=$PATH:'$(pwd) >> $HOME/.bashrc
+echo -e '\n# Path to OpenWeather bash commands\nexport PATH=$PATH:'$(pwd) >> $HOME/.bashrc

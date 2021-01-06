@@ -1,0 +1,4 @@
+#1/bin/bash
+# Use: forecast <location>
+
+location=$1
