@@ -1,4 +1,43 @@
-#1/bin/bash
+#!/bin/bash
 # Use: forecast <location>
 
 location=$1
+
+# array used as text to put before weather conditions
+weatherText=("-" "- The temperature will be around " ", with a minimum of " ", and a maximum of " ". Weather of the day: " ". The wind velocity will be around " ". Finally, the chance of raining in this day is ")
+
+read vWeatherFull < <(echo $(curl -s --request GET --url 'api.openweathermap.org/data/2.5/forecast?q=buttapietra&units=metric&appid=b970c07bf55d63c736b244f93fdc11ae' | jq '.list[] | "\(.dt)-\(.main.temp)-\(.main.temp_min)-\(.main.temp_max)-\(.weather[].main)-\(.wind.speed)-\(.pop)"'))
+
+# This line serves to remove every quotation mark
+vWeatherFull=$(echo $vWeatherFull | tr -d '"')
+
+# Atm vWeatherFull contains all data in one variable, this line break down vWeatherFull in an array, every cell of the array is made by: time-temp-temp_min-temp_max-weather-wind-possibilityOfPrecipitation (this is one variable, it will become its own array in the next loop)#
+IFS=' '  read -r -a aWeatherFull <<< "$vWeatherFull"
+
+
+# Most important loop! Takes the main array and break it down in smaller arrays dynamically created #
+for (( i = 0; i < ${#aWeatherFull[*]}; i++ ))
+do
+	IFS='-' read -r -a  aWeatherPoint$i <<< "${aWeatherFull[i]}"
+done
+
+# This loop writes weather for every three hours
+for (( i = 0; i < ${#aWeatherFull[*]}; i++ ))
+do
+	eval time='$'"{aWeatherPoint"$i"[0]}"
+	time=$(date -d @$time +%H)
+	#echo $time
+	if [ $time == 12 ] || [ $time == 13 ] || [ $time == 14 ]
+	then
+		for (( j=0; j<7;j++ ))
+		do	
+			eval var='$'"{aWeatherPoint"$i"["$j"]}"
+			if [[ $j == 0 ]]
+			then 
+				var=$(date -d @$var '+%A %d %B %Y')
+			fi
+			echo -n ${weatherText[$j]}$var
+		done
+		echo -e "\n"
+	fi
+done
