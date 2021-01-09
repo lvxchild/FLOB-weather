@@ -33,9 +33,10 @@ The installation process is pretty easy:
 Use of this app is pretty straightforward:
 * **weather \<location\>** <br>
   You must specify a location. <br>
+  To kill this app just press 'ctrl' + 'c' <br>
   If the location is made of more than one word you have to separate them with - (hyphen) <br>
   * Example: <br>
-    weather san-francisco
+    weather san-francisco <br>
 * **forecast \<location\>** <br>
   You must specify a location. <br>
   If the location is made of more than one word you have to separate them with - (hyphen) <br>
