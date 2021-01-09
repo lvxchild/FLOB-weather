@@ -5,7 +5,7 @@
 source Prefs.cfg
 
 # First parameter after command #
-location=$1
+location=$(echo $1 | sed 's/\-/%20/g')
 
 # Operation tha clear the terminal, enabled by default, can be disabled easily using ./UpdatePrefs.sh
 if [[ "$clearTerminal" == "y" ]]
