@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Setup for preferences #
-echo "---OPEN WEATHER CLI APP SETUP---"
+echo "---FLOB WEATHER CLI APP SETUP---"
 echo "Enter your Open Weather API key:"
 read apiKey
 
@@ -32,11 +32,11 @@ clearTerminal="y"
 singleEvent="n"
 refreshTime="60"
 
-echo "This is just the minimal installation, if you want to choose a few more details of this app, launch ./UpdatePrefs.sh after this installation finish."
-
 # Create prefs.cfg and write on it #
 touch $(pwd)/Prefs.cfg
 echo -e 'apiKey="'$apiKey'"\nunits="'$units'"\nclearTerminal="'$clearTerminal'"\ntimeFormat="'$timeFormat'"\nsingleEvent="'$singleEvent'"\nrefreshTime="'$refreshTime'"' >> $(pwd)/Prefs.cfg
 
-# Write PATH onto .bashrc, to be able to call OpenWeather commands everywhere #
-echo -e '\n# Path to OpenWeather bash commands\nexport PATH=$PATH:'$(pwd) >> $HOME/.bashrc
+# Write PATH onto .bashrc, to be able to call FLOB weather commands everywhere #
+echo -e '\n# Path to FLOB weather bash commands\nexport PATH=$PATH:'$(pwd) >> $HOME/.bashrc
+
+echo "This is just the minimal installation, if you want to choose a few more details of this app, launch ./UpdatePrefs.sh after this installation finish."
