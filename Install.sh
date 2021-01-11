@@ -31,10 +31,11 @@ done
 clearTerminal="y"
 singleEvent="n"
 refreshTime="60"
+installLocation=$(pwd)
 
 # Create prefs.cfg and write on it #
 touch $(pwd)/Prefs.cfg
-echo -e 'apiKey="'$apiKey'"\nunits="'$units'"\nclearTerminal="'$clearTerminal'"\ntimeFormat="'$timeFormat'"\nsingleEvent="'$singleEvent'"\nrefreshTime="'$refreshTime'"' >> $(pwd)/Prefs.cfg
+echo -e 'apiKey="'$apiKey'"\nunits="'$units'"\nclearTerminal="'$clearTerminal'"\ntimeFormat="'$timeFormat'"\nsingleEvent="'$singleEvent'"\nrefreshTime="'$refreshTime'"\ninstallLocation="'$installLocation'"' >> $(pwd)/Prefs.cfg
 
 # Write PATH onto .bashrc, to be able to call FLOB weather commands everywhere #
 echo -e '\n# Path to FLOB weather bash commands\nexport PATH=$PATH:'$(pwd) >> $HOME/.bashrc

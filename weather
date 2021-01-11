@@ -1,18 +1,112 @@
 #!/bin/bash
-# Use: weather <location>
+#		 Required    Optional Optional
+# Use: 	weather  <location>  <units>  <timeFormat>
 
-# Importing preferences from prefs.cfg #
+# Importing preferences from Prefs.cfg #
 source Prefs.cfg
 
 # First parameter after command #
 location=$(echo $1 | sed 's/\-/%20/g')
+
+# Second parameter after command #
+if [[ ! -z "$2" ]]
+then
+	case $2 in
+		"-12")
+			timeFormat="12"
+			;;
+		"-24")
+			timeFormat="24"
+			;;
+		"-s")
+			singleEvent="y"
+			;;
+		"-nC")
+			clearTerminal="n"
+			;;
+		"-i")
+			units="imperial"
+			;;
+		"-m")
+			units="metric"
+	esac
+fi
+
+if [[ ! -z "$3" ]]
+then
+	case $3 in
+		"-12")
+			timeFormat="12"
+			;;
+		"-24")
+			timeFormat="24"
+			;;
+		"-s")
+			singleEvent="y"
+			;;
+		"-nC")
+			clearTerminal="n"
+			;;
+		"-i")
+			units="imperial"
+			;;
+		"-m")
+			units="metric"
+	esac
+fi
+
+if [[ ! -z "$4" ]]
+then
+	case $4 in
+		"-12")
+			timeFormat="12"
+			;;
+		"-24")
+			timeFormat="24"
+			;;
+		"-s")
+			singleEvent="y"
+			;;
+		"-nC")
+			clearTerminal="n"
+			;;
+		"-i")
+			units="imperial"
+			;;
+		"-m")
+			units="metric"
+	esac
+fi
+
+if [[ ! -z "$5" ]]
+then
+	case $5 in
+		"-12")
+			timeFormat="12"
+			;;
+		"-24")
+			timeFormat="24"
+			;;
+		"-s")
+			singleEvent="y"
+			;;
+		"-nC")
+			clearTerminal="n"
+			;;
+		"-i")
+			units="imperial"
+			;;
+		"-m")
+			units="metric"
+	esac
+fi
 
 # Operation tha clear the terminal, enabled by default, can be disabled easily using ./UpdatePrefs.sh
 if [[ "$clearTerminal" == "y" ]]
 then
 	clear
 fi
-echo -e '\e[1A\e[K'
+echo -e '\e[1A'
 
 # Time format selection #
 if [[ "$timeFormat" == "12" ]]
@@ -31,6 +125,8 @@ else
 	unitTemp="C"
 	unitWind="m/s"
 fi
+
+cat $installLocation'/Banner.txt'
 
 # Main loop that display data accordingly to Prefs.cfg
 while :
@@ -52,8 +148,5 @@ do
 	sleep $refreshTime
 
 	# Clear every line before updating stats #
-	for i in {1..5}
-	do
-		echo -e '\e['$i'A\e[K'
-	done
+	echo -e '\e[5A'
 done
