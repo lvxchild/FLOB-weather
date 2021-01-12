@@ -8,98 +8,32 @@ source Prefs.cfg
 # First parameter after command #
 location=$(echo $1 | sed 's/\-/%20/g')
 
-# Second parameter after command #
-if [[ ! -z "$2" ]]
-then
-	case $2 in
-		"-12")
-			timeFormat="12"
-			;;
-		"-24")
-			timeFormat="24"
-			;;
-		"-s")
-			singleEvent="y"
-			;;
-		"-nC")
-			clearTerminal="n"
-			;;
-		"-i")
-			units="imperial"
-			;;
-		"-m")
-			units="metric"
-	esac
-fi
-
-if [[ ! -z "$3" ]]
-then
-	case $3 in
-		"-12")
-			timeFormat="12"
-			;;
-		"-24")
-			timeFormat="24"
-			;;
-		"-s")
-			singleEvent="y"
-			;;
-		"-nC")
-			clearTerminal="n"
-			;;
-		"-i")
-			units="imperial"
-			;;
-		"-m")
-			units="metric"
-	esac
-fi
-
-if [[ ! -z "$4" ]]
-then
-	case $4 in
-		"-12")
-			timeFormat="12"
-			;;
-		"-24")
-			timeFormat="24"
-			;;
-		"-s")
-			singleEvent="y"
-			;;
-		"-nC")
-			clearTerminal="n"
-			;;
-		"-i")
-			units="imperial"
-			;;
-		"-m")
-			units="metric"
-	esac
-fi
-
-if [[ ! -z "$5" ]]
-then
-	case $5 in
-		"-12")
-			timeFormat="12"
-			;;
-		"-24")
-			timeFormat="24"
-			;;
-		"-s")
-			singleEvent="y"
-			;;
-		"-nC")
-			clearTerminal="n"
-			;;
-		"-i")
-			units="imperial"
-			;;
-		"-m")
-			units="metric"
-	esac
-fi
+for i in {2..5}
+do
+	eval temp='$'$i
+	if [[ ! -z $temp ]]
+	then
+		case $temp in
+			"-12")
+				timeFormat="12"
+				;;
+			"-24")
+				timeFormat="24"
+				;;
+			"-s")
+				singleEvent="y"
+				;;
+			"-nC")
+				clearTerminal="n"
+				;;
+			"-i")
+				units="imperial"
+				;;
+			"-m")
+				units="metric"
+		esac
+	fi
+done
 
 # Operation tha clear the terminal, enabled by default, can be disabled easily using ./UpdatePrefs.sh
 if [[ "$clearTerminal" == "y" ]]

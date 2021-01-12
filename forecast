@@ -8,11 +8,25 @@ source Prefs.cfg
 # First parameter after command #
 location=$(echo $1 | sed 's/\-/%20/g')
 
-# Second parameter after command #
-if [[ ! -z "$2" ]]
-then
-	units=$2
-fi
+# Optional parameters after required parameter #
+for i in {2..3}
+do
+	eval temp='$'$i
+	if [[ ! -z $temp ]]
+	then
+		case $temp in
+			"-c")
+				clear
+				;;
+			"-i")
+				units="imperial"
+				;;
+			"-m")
+				units="metric"
+				;;
+		esac
+	fi
+done
 
 # Time format selection #
 if [[ "$units" == "imperial" ]]
