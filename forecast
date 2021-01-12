@@ -14,8 +14,18 @@ then
 	units=$2
 fi
 
+# Time format selection #
+if [[ "$units" == "imperial" ]]
+then
+	unitTemp="F"
+	unitWind="mph"
+else
+	unitTemp="C"
+	unitWind="m/s"
+fi
+
 # array used as text to put before weather conditions
-weatherText=("-" "- The temperature will be around " ", with a minimum of " ", and a maximum of " ". Weather of the day: " ". The wind velocity will be around " ". Finally, the chance of raining in this day is ")
+weatherText=("-" "- The temperature will be around " "$unitTemp, with a minimum of " "$unitTemp, and a maximum of " "$unitTemp. Weather of the day: " ". The wind velocity will be around " "$unitWind. Finally, the chance of raining in this day is ")
 
 read vWeatherFull < <(echo $(curl -s --request GET --url 'api.openweathermap.org/data/2.5/forecast?q='$location'&appid='$apiKey'&units='$units | jq '.list[] | "\(.dt)-\(.main.temp)-\(.main.temp_min)-\(.main.temp_max)-\(.weather[].main)-\(.wind.speed)-\(.pop)"'))
 
@@ -37,7 +47,6 @@ for (( i = 0; i < ${#aWeatherFull[*]}; i++ ))
 do
 	eval time='$'"{aWeatherPoint"$i"[0]}"
 	time=$(date -d @$time +%H)
-	#echo $time
 	if [ $time == 12 ] || [ $time == 13 ] || [ $time == 14 ]
 	then
 		for (( j=0; j<7;j++ ))
