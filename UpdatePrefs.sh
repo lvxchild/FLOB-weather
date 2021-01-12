@@ -12,6 +12,7 @@ newClearTerminal=$clearTerminal
 newTimeFormat=$timeFormat
 newSingleEvent=$singleEvent
 newRefreshTime=$refreshTime
+newInstallLocation=$installLocation
 
 # Setup for new prefecences #
 choice=00
@@ -25,6 +26,7 @@ do
 	echo "4) Modify time format"
 	echo "5) Choose wether to refresh or not data"
 	echo "6) Modify the refresh timer"
+	echo "7) Update install path"
 	echo "0) Exit"
 	read choice
 	echo -e '\e[1A\e[K'
@@ -89,6 +91,11 @@ do
 				read newRefreshTime
 			done
 			;;
+		7)
+			newInstallLocation=$(pwd)
+			echo "Install path updated"
+			sleep 0.5
+			;;
 		0)
 			;;
 	esac
@@ -97,4 +104,4 @@ done
 
 # Remove old Prefs.cfg and create a new updated one #
 rm $(pwd)/Prefs.cfg
-echo -e 'apiKey="'$newApiKey'"\nunits="'$newUnits'"\nclearTerminal="'$newClearTerminal'"\ntimeFormat="'$newTimeFormat'"\nsingleEvent="'$newSingleEvent'"\nrefreshTime="'$newRefreshTime'"' >> $(pwd)/Prefs.cfg
+echo -e 'apiKey="'$newApiKey'"\nunits="'$newUnits'"\nclearTerminal="'$newClearTerminal'"\ntimeFormat="'$newTimeFormat'"\nsingleEvent="'$newSingleEvent'"\nrefreshTime="'$newRefreshTime'"\ninstallLocation="'$newInstallLocation'"' >> $(pwd)/Prefs.cfg

@@ -1,38 +1,6 @@
 #!/bin/bash
 #		 Required    Optional
-# Use: forecast  <location>  <units>
-
-# Importing Prefs.cfg #
-source Prefs.cfg
-
-# First parameter after command #
-location=$(echo $1 | sed 's/\-/%20/g')
-
-# Second parameter after command #
-if [[ ! -z "$2" ]]
-then
-	units=$2
-fi
-
-# array used as text to put before weather conditions
-weatherText=("-" "- The temperature will be around " ", with a minimum of " ", and a maximum of " ". Weather of the day: " ". The wind velocity will be around " ". Finally, the chance of raining in this day is ")
-
-read vWeatherFull < <(echo $(curl -s --request GET --url 'api.openweathermap.org/data/2.5/forecast?q='$location'&appid='$apiKey'&units='$units | jq '.list[] | "\(.dt)-\(.main.temp)-\(.main.temp_min)-\(.main.temp_max)-\(.weather[].main)-\(.wind.speed)-\(.pop)"'))
-
-# This line serves to remove every quotation mark
-vWeatherFull=$(echo $vWeatherFull | tr -d '"')
-
-# Atm vWeatherFull contains all data in one variable, this line break down vWeatherFull in an array, every cell of the array is made by: time-temp-temp_min-temp_max-weather-wind-possibilityOfPrecipitation (this is one variable, it will become its own array in the next loop)#
-IFS=' '  read -r -a aWeatherFull <<< "$vWeatherFull"
-
-
-# Most important loop! Takes the main array and break it down in smaller arrays dynamically created #
-for (( i = 0; i < ${#aWeatherFull[*]}; i++ ))
-do
-	IFS='-' read -r -a  aWeatherPoint$i <<< "${aWeatherFull[i]}"
-done
-
-# This loop writes weather for every three hours
+# Use: forecast  <location>  
 for (( i = 0; i < ${#aWeatherFull[*]}; i++ ))
 do
 	eval time='$'"{aWeatherPoint"$i"[0]}"
