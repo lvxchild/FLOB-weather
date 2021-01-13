@@ -30,7 +30,7 @@ done
 # Create other prefs, editables easily using ./UpdatePrefs.sh
 clearTerminal="y"
 singleEvent="n"
-refreshTime="60"
+refreshTime="600"
 installLocation=$(pwd)
 
 # Create prefs.cfg and write on it #
