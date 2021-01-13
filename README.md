@@ -19,7 +19,7 @@ The app at the moment has these commands:
   -thursday 14 january 2021- The temperature will be around 4.92, with a minimum of 4.92, and a maximum of 4.92. Weather of the day: Clear. The wind velocity will be around 0.3. Finally, the chance of raining in this day is 0
 
 ## Prerequisites
-This app should work on every CLI, but because it uses OpenWeather API you have to register on their [website](https://openweathermap.org/) ( if you are not) to get the API Key required ( although the company offers paid plans, there is also a free one, and it works perfectly fine for this app).
+This app uses **curl** and **jq**, it also uses OpenWeather API so you have to register on their [website](https://openweathermap.org/) to get the API Key required ( although the company offers paid plans, there is also a free one, and it works perfectly fine for this app).
 
 ## Installation
 The installation process is pretty easy:
