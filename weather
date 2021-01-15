@@ -8,7 +8,7 @@ source Prefs.cfg
 # First parameter after command #
 location=$(echo $1 | sed 's/\-/%20/g')
 
-for i in {2..5}
+for i in {2..6}
 do
 	eval temp='$'$i
 	if [[ ! -z $temp ]]
@@ -25,6 +25,9 @@ do
 				;;
 			"-nC")
 				clearTerminal="n"
+				;;
+			"-nI")
+				displayWeatherImage="n"
 				;;
 			"-i")
 				units="imperial"
@@ -65,8 +68,36 @@ cat $installLocation'/Banner.txt'
 # Main loop that display data accordingly to Prefs.cfg
 while :
 do
-	read temp tempFeel tempMin tempMax humidity sunrise sunset < <(echo $(curl -s --request GET --url 'api.openweathermap.org/data/2.5/weather?q='$location'&appid='$apiKey'&units='$units | jq '.main.temp, .main.feels_like, .main.temp_min, .main.temp_max, .main.humidity, .sys.sunrise, .sys.sunset' ))
+	read weather temp tempFeel tempMin tempMax humidity sunrise sunset < <(echo $(curl -s --request GET --url 'api.openweathermap.org/data/2.5/weather?q='$location'&appid='$apiKey'&units='$units | jq '.weather[].main, .main.temp, .main.feels_like, .main.temp_min, .main.temp_max, .main.humidity, .sys.sunrise, .sys.sunset' ))
 	
+	if [[ "$displayWeatherImage" == "y" ]]
+	then
+		weather=$(echo $weather | tr -d '"')
+		displayWeatherImage="n"
+		case $weather in
+			"Clear")
+				sed -n 10,16p $installLocation'/WeatherImages.txt'
+				;;
+			"Clouds")
+				sed -n 18,24p $installLocation'/WeatherImages.txt'
+				;;
+			"Rain")
+				sed -n 26,32p $installLocation'/WeatherImages.txt'
+				;;
+			"Drizzle")
+				sed -n 34,40p $installLocation'/WeatherImages.txt'
+				;;
+			"Thunderstorm")
+				sed -n 42,48p $installLocation'/WeatherImages.txt'
+				;;
+			"Snow")
+				sed -n 50,56p $installLocation'/WeatherImages.txt'
+				;;
+			"Atmosphere")
+				sed -n 58,64p $installLocation'/WeatherImages.txt'
+				;;
+		esac
+	fi
 	echo "The temperature is ${temp}${unitTemp}, but it feels like ${tempFeel}${unitTemp}"
 	echo "The humidity is at ${humidity}%"
 	echo "Min: ${tempMin}${unitTemp} | Max: ${tempMax}${unitTemp}"

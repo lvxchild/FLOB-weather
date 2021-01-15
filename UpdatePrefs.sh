@@ -13,6 +13,7 @@ newTimeFormat=$timeFormat
 newSingleEvent=$singleEvent
 newRefreshTime=$refreshTime
 newInstallLocation=$installLocation
+newDisplayWeatherImage=$displayWeatherImage
 
 # Setup for new prefecences #
 choice=00
@@ -27,6 +28,7 @@ do
 	echo "5) Choose wether to refresh or not data"
 	echo "6) Modify the refresh timer"
 	echo "7) Update install path"
+	echo "8) Choose wether to show weather images or not"
 	echo "0) Exit"
 	read choice
 	echo -e '\e[1A\e[K'
@@ -96,6 +98,18 @@ do
 			echo "Install path updated"
 			sleep 0.5
 			;;
+		8)
+			echo "Do you want the weather image to be shown (y/n)?"
+			read newDisplayWeatherImage
+			newDisplayWeatherImage=$( echo $newDisplayWeatherImage | tr [:upper:] [:lower:])
+			while [ "$newDisplayWeatherImage" != "y" ] && [ "$newDisplayWeatherImage" != "n" ]
+			do
+				echo "Only 'y' and 'n' are valid options"
+				echo "Do you want the weather image to be shown (y/n)?"
+				read newDisplayWeatherImage
+				newDisplayWeatherImage=$( echo $newDisplayWeatherImage | tr [:upper:] [:lower:])
+			done
+			;;
 		0)
 			;;
 	esac
@@ -104,4 +118,4 @@ done
 
 # Remove old Prefs.cfg and create a new updated one #
 rm $(pwd)/Prefs.cfg
-echo -e 'apiKey="'$newApiKey'"\nunits="'$newUnits'"\nclearTerminal="'$newClearTerminal'"\ntimeFormat="'$newTimeFormat'"\nsingleEvent="'$newSingleEvent'"\nrefreshTime="'$newRefreshTime'"\ninstallLocation="'$newInstallLocation'"' >> $(pwd)/Prefs.cfg
+echo -e 'apiKey="'$newApiKey'"\nunits="'$newUnits'"\nclearTerminal="'$newClearTerminal'"\ntimeFormat="'$newTimeFormat'"\nsingleEvent="'$newSingleEvent'"\nrefreshTime="'$newRefreshTime'"\ninstallLocation="'$newInstallLocation'"\ndisplayWeatherImage="'$newDisplayWeatherImage'"' >> $(pwd)/Prefs.cfg
