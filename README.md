@@ -1,4 +1,5 @@
 # FLOB Weather
+<img src=".github/weather.png"> <br>
 **F**(or)**L**(ack)**O**(f a)**B**(etter) **Weather** is a small CLI app that let you ask for weather forecasts directly from you terminal using OpenWeather API. <br>
 The app at the moment has these commands:
 * **weather \<location\>** <br>
@@ -12,18 +13,18 @@ The app at the moment has these commands:
 * **forecast \<location\>** <br>
   Print on screen the weather conditions of the current day and the following four.
   * Example: <br>
-  -sunday 10 january 2021- The temperature will be around 5.41, with a minimum of 5.41, and a maximum of 5.41.    Weather of the day: Clouds. The wind velocity will be around 4.31. Finally, the chance of raining in this day is 0 <br>
-  -monday 11 january 2021- The temperature will be around 4.41, with a minimum of 4.41, and a maximum of 4.41. Weather of the day: Clear. The wind velocity will be around 0.33. Finally, the chance of raining in this day is 0 <br>
-  -tuesday 12 january 2021- The temperature will be around 4.39, with a minimum of 4.39, and a maximum of 4.39. Weather of the day: Clouds. The wind velocity will be around 2.55. Finally, the chance of raining in this day is 0 <br>
-  -wednesday 13 january 2021- The temperature will be around 5.84, with a minimum of 5.84, and a maximum of 5.84. Weather of the day: Clear. The wind velocity will be around 1.95. Finally, the chance of raining in this day is 0 <br>
-  -thursday 14 january 2021- The temperature will be around 4.92, with a minimum of 4.92, and a maximum of 4.92. Weather of the day: Clear. The wind velocity will be around 0.3. Finally, the chance of raining in this day is 0
+  -sunday 10 january 2021- The temperature will be around 5.41C, with a minimum of 5.12C, and a maximum of 5.81C. Weather of the day: Clouds. The wind velocity will be around 4.31m/s. Finally, the chance of raining in this day is 0.12 <br>
+  -monday 11 january 2021- The temperature will be around 4.41C, with a minimum of 3.21C, and a maximum of 4.53C. Weather of the day: Clear. The wind velocity will be around 0.33m/s. Finally, the chance of raining in this day is 0 <br>
+  -tuesday 12 january 2021- The temperature will be around 4.39C, with a minimum of 4.39C, and a maximum of 4.59C. Weather of the day: Clouds. The wind velocity will be around 2.55m/s. Finally, the chance of raining in this day is 0.23 <br>
+  -wednesday 13 january 2021- The temperature will be around 5.84C, with a minimum of 5.13C, and a maximum of 6.22C. Weather of the day: Clear. The wind velocity will be around 1.95m/s. Finally, the chance of raining in this day is 0 <br>
+  -thursday 14 january 2021- The temperature will be around 4.92C, with a minimum of 4.90C, and a maximum of 5C. Weather of the day: Clear. The wind velocity will be around 0.3m/s. Finally, the chance of raining in this day is 0.02
 
 ## Prerequisites
 This app uses **curl** and **jq**, it also uses OpenWeather API so you have to register on their [website](https://openweathermap.org/) to get the API Key required ( although the company offers paid plans, there is also a free one, and it works perfectly fine for this app).
 
 ## Installation
 The installation process is pretty easy:
-1. Create a folder to store all the files in OpenWeather
+1. Create a folder to store all the files you are going to download from here
 2. Clone this repository inside the folder you created
 3. Unzip the file
 4. launch the installer typing ./Install
