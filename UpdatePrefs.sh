@@ -118,4 +118,4 @@ done
 
 # Remove old Prefs.cfg and create a new updated one #
 rm $(pwd)/Prefs.cfg
-echo -e 'apiKey="'$newApiKey'"\nunits="'$newUnits'"\nclearTerminal="'$newClearTerminal'"\ntimeFormat="'$newTimeFormat'"\nsingleEvent="'$newSingleEvent'"\nrefreshTime="'$newRefreshTime'"\ninstallLocation="'$newInstallLocation'"\ndisplayWeatherImage="'$newDisplayWeatherImage'"' >> $(pwd)/Prefs.cfg
+echo 'apiKey="'$newApiKey'"\nunits="'$newUnits'"\nclearTerminal="'$newClearTerminal'"\ntimeFormat="'$newTimeFormat'"\nsingleEvent="'$newSingleEvent'"\nrefreshTime="'$newRefreshTime'"\ninstallLocation="'$newInstallLocation'"\ndisplayWeatherImage="'$newDisplayWeatherImage'"' >> $(pwd)/Prefs.cfg
